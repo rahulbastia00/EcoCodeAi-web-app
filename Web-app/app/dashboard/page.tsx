@@ -1,3 +1,4 @@
+"use client";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { DashboardHeader } from "@/components/dashboard/header";
@@ -6,8 +7,15 @@ import { RepositoryList } from "@/components/dashboard/repository-list";
 import { EfficiencyChart } from "@/components/dashboard/efficiency-chart";
 import { CarbonFootprintChart } from "@/components/dashboard/carbon-footprint-chart";
 import { OptimizationSuggestions } from "@/components/dashboard/optimization-suggestions";
+import { useSession, signIn, signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function DashboardPage() {
+  const { data: session } = useSession();
+  const router = useRouter();
+  if(!session){
+    router.push("/");
+  }
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
